@@ -1,0 +1,53 @@
+<!-- <html>
+
+<head>
+</head>
+
+<body>
+    <div>
+        <p>hello world</p>
+        <table>
+            <tr>
+                <th>
+                    <ul><a style="text-decoration: none;color: #fff;font-weight: bold;font-size: 20px;cursor: pointer;width: 100px;margin: 5px;padding: 13px;border-radius: 18px;background-color: rgb(17, 134, 36);"
+                            href="https://www.youtube.com/watch?v=JRCJ6RtE3xU">Yes</a></ul>
+                </th>
+                <th>
+                    <ul><a style="text-decoration: none;color: #fff;font-weight: bold;font-size: 20px;cursor: pointer;width: 100px;margin: 5px;padding: 13px;border-radius: 18px;background-color: rgb(167, 38, 28);"
+                            href="https://www.youtube.com/watch?v=JRCJ6RtE3xU">No</a></ul>
+                </th>
+                <th>
+                    <ul><a style="text-decoration: none;color: #fff;font-weight: bold;font-size: 20px;cursor: pointer;width: 100px;margin: 5px;padding: 13px;border-radius: 18px;background-color: rgb(11, 168, 196);"
+                            href="https://www.youtube.com/watch?v=JRCJ6RtE3xU">Reschedule</a></ul>
+                </th>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html> -->
+<html>
+
+<head>
+    <title>(Type a title for your page here)</title>
+    <script type="text/javascript">
+        function display_c() {
+            var refresh = 1000; // Refresh rate in milli seconds
+            mytime = setTimeout('display_ct()', refresh)
+        }
+
+        function display_ct() {
+            var x = new Date()
+            console.log(typeof (x))
+            document.getElementById('ct').innerHTML = x;
+            display_c();
+        }
+    </script>
+</head>
+
+<body onload=display_ct();>
+    <span id='ct'></span>
+
+</body>
+
+</html>

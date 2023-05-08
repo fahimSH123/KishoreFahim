@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Event</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <link rel="stylesheet" href="../static/css/landing.css">
+    <!---we had linked our css file----->
+</head>
+
+<body>
+    <div class="full-page">
+        <div>
+            <h1 class="h1">Event Management System</h1>
+            <h1>Welcome</h1>
+            <!-- <h3>Machine Learning Technique</h3> -->
+        </div>
+        <div class="navbar">
+
+            <nav>
+                <ul id='MenuItems'>
+                    <li><a href='#' onclick="display_upload()">Home</a></li>
+                    <li><a id="user_namebtn" onclick="uploadname()">Events</a></li>
+                    <!-- <div id="events12" class="uploadfile btn btn-primary">
+                            <form method="post" action="/event12">
+                                <button class="upload" id="user_namebtn">
+                                    <input name='user_name1' onchange='this.form.submit()' type="text"
+                                        value={{user_name}}>
+                                    Events
+                                </button>
+                            </form>
+                        </div> -->
+
+                    </li>
+                    <li><a href='#' onclick="display_login()">Contact</a></li>
+                    <li><button id='loginbtn' onclick="document.getElementById('login-form').style.display='block'"
+                            style="width:auto;">Login</button></li>
+                    <li><a id='logoutbtn' href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <section id="snackbar-container">
+
+        </section>
+        <div id='login-form' class='login-page'>
+            <div class="form-box">
+                <div class='button-box'>
+                    <div id='btn'></div>
+                    <button type='button' onclick='login()' class='toggle-btn'>Log In</button>
+                    <button type='button' onclick='register()' class='toggle-btn'>Register</button>
+                </div>
+                <form id='login' class='input-group-login' action="/signin" method="post">
+                    <input type='text' class='input-field' placeholder='Email Id' required name="email">
+                    <input type='password' class='input-field' placeholder='Enter Password' required name="password">
+                    <input type='checkbox' class='check-box'><span>Remember Password</span>
+                    <button class='submit-btn'>Log in</button>
+                </form>
+                <form id='register' class='input-group-register' action="/signup" method="post">
+                    <input type='text' class='input-field' placeholder='First Name' required name="fname">
+                    <input type='text' class='input-field' placeholder='Last Name ' required name="lname">
+                    <input type='email' class='input-field' placeholder='Email Id' required name="email">
+                    <input type='password' class='input-field' placeholder='Enter Password' required name="password">
+                    <input type='password' class='input-field' placeholder='Confirm Password' required
+                        name="confirm_password">
+                    <input type='checkbox' class='check-box'><span>I agree to the terms and conditions</span>
+                    <button class='submit-btn'>Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var x = document.getElementById('login');
+        var y = document.getElementById('register');
+        var z = document.getElementById('btn');
+        function register() {
+            x.style.left = '-400px';
+            y.style.left = '50px';
+            z.style.left = '110px';
+        }
+        function login() {
+            x.style.left = '50px';
+            y.style.left = '450px';
+            z.style.left = '0px';
+        }
+    </script>
+    <script>
+        var modal = document.getElementById('login-form');
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+
+        }
+    </script>
+    <script>
+        var upload1 = '{{ok}}'
+        console.log(upload1)
+        if (upload1 == 'run') {
+            document.getElementById('logoutbtn').style.display = "none";
+            document.getElementById('user_namebtn').style.display = "none";
+
+        }
+
+        if (upload1 == 'ok') {
+            document.getElementById("loginbtn").style.display = "none";
+            document.getElementById('user_namebtn').style.display = "block";
+            document.getElementById('logoutbtn').style.display = "block";
+        }
+        if (upload1 == 'logout') {
+            document.getElementById("loginbtn").style.display = "block";
+            document.getElementById('logoutbtn').style.display = "none";
+            document.getElementById('user_namebtn').style.display = "none";
+        }
+
+    </script>
+    <script>
+        var good = '{{msgs}}';
+        var bad = '{{war}}';
+        var vbad = '{{ error }}';
+        const snackbarContainer = document.getElementById('snackbar-container');
+        if (vbad) {
+            snackbar(vbad, ' ' + 'Error  ' + '  :  ' + ' ' + vbad, 4000);
+        }
+        if (good) {
+            snackbar(good, ' ' + 'Success  ' + '  :  ' + ' ' + good, 4000);
+        }
+        if (bad) {
+            snackbar(bad, ' ' + 'Warning  ' + '  :  ' + ' ' + bad, 4000);
+        }
+        function snackbar(type, msg, time) {
+            const para = document.createElement('P');
+            para.classList.add('snackbar');
+            para.innerHTML = `${msg} `;
+
+            if (type === vbad) {
+                para.classList.add('error');
+            }
+            else if (type === good) {
+                para.classList.add('success');
+            }
+            else if (type === bad) {
+                para.classList.add('warning');
+            }
+
+            snackbarContainer.appendChild(para);
+            para.classList.add('fadeout');
+
+            setTimeout(() => {
+                snackbarContainer.removeChild(para)
+            }, time)
+
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        function uploadname() {
+            var name1 = '{{user_name}}';
+
+
+            const user_name = JSON.stringify(name1);
+            // console.log("user_name        :" + user_name);
+            $.ajax({
+                url: "{{ url_for('event12') }}",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(user_name)
+
+            });
+            window.location.href = "{{ url_for('event12') }}";
+
+        }
+    </script>
+</body>
+
+</html>
